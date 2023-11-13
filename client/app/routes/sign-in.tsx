@@ -1,9 +1,14 @@
 import { Form, Link, useActionData } from "@remix-run/react";
-import { createUserSession, signIn } from "~/utils/session.server";
+import { createUserSession, getUserId, signIn } from "~/utils/session.server";
 import { Label } from "~/components/ui/label";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import type { ActionFunction, MetaFunction } from "@remix-run/node";
+import type {
+  ActionFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 
 type ActionData = {
   formError?: string;
@@ -14,6 +19,14 @@ export const meta: MetaFunction = () => {
     { title: "Sign In | Todo with NER" },
     { name: "description", content: "Sign In into todo with NER" },
   ];
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await getUserId(request);
+
+  if (userId) {
+    return redirect("/");
+  }
 };
 
 export const action: ActionFunction = async ({
