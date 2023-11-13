@@ -27,6 +27,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (userId) {
     return redirect("/");
   }
+
+  return null;
 };
 
 export const action: ActionFunction = async ({
