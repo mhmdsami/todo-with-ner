@@ -1,5 +1,6 @@
 .venv
 __pycache__
+/ner/model/
 
 node_modules
 

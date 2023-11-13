@@ -32,4 +32,7 @@ def root():
 @app.post("/ner")
 def ner(task: Task):
     doc = nlp(task.input)
-    return {"success": True, "data": list(map(lambda x: {"text": x.text, "type": x.label_}, doc.ents))}
+    return {
+        "success": True,
+        "data": list(map(lambda x: {"text": x.text, "type": x.label_}, doc.ents)),
+    }
